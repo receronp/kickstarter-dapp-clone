@@ -1,11 +1,12 @@
 {
-  "name": "truffle-project",
+  "name": "kickstarter-dapp-clone",
   "version": "0.1.0",
-  "description": "Truffle project with SimpleStorage contract",
+  "description": "Truffle project with Kickstarter DApp Clone.",
   "scripts": {
     "test": "truffle test"
   },
   "dependencies": {
-    "@truffle/hdwallet-provider": "^2.1.7"
+    "@truffle/hdwallet-provider": "^2.1.9",
+    "dotenv": "^16.0.3"
   }
 }
