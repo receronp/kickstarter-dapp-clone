@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 
-function Contract({ value }) {
+function Contract({ manager, value }) {
   const spanEle = useRef(null);
 
   useEffect(() => {
@@ -15,22 +15,28 @@ function Contract({ value }) {
 
   return (
     <code>
-      {`contract SimpleStorage {
-  uint256 value = `}
-
+      {`contract Campaign {
+    address public manager; // set to `}
+      <span className="secondary-color" ref={spanEle}>
+        <strong>{manager}</strong>
+      </span>
+      {`
+    uint public minimumContribution; // set to `}
       <span className="secondary-color" ref={spanEle}>
         <strong>{value}</strong>
       </span>
+      {`
+    address[] public approvers;
 
-      {`;
+    constructor(uint minimum) {
+        manager = msg.sender;
+        minimumContribution = minimum;
+    }
 
-  function read() public view returns (uint256) {
-    return value;
-  }
-
-  function write(uint256 newValue) public {
-    value = newValue;
-  }
+    function contribute() public payable {
+        require(msg.value > minimumContribution);
+        approvers.push(msg.sender);
+    }
 }`}
     </code>
   );

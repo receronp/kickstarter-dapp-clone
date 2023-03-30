@@ -1,22 +1,31 @@
 import { useState } from "react";
 import useEth from "../../contexts/EthContext/useEth";
 
-function ContractBtns({ setValue }) {
-  const { state: { contract, accounts } } = useEth();
+function ContractBtns({ setManager, setValue }) {
+  const {
+    state: { contract, accounts },
+  } = useEth();
   const [inputValue, setInputValue] = useState("");
 
-  const handleInputChange = e => {
+  const handleInputChange = (e) => {
     if (/^\d+$|^$/.test(e.target.value)) {
       setInputValue(e.target.value);
     }
   };
 
-  const read = async () => {
-    const value = await contract.methods.read().call({ from: accounts[0] });
+  const manager = async () => {
+    const value = await contract.methods.manager().call({ from: accounts[0] });
+    setManager(value);
+  };
+
+  const minimumContribution = async () => {
+    const value = await contract.methods
+      .minimumContribution()
+      .call({ from: accounts[0] });
     setValue(value);
   };
 
-  const write = async e => {
+  const contribute = async (e) => {
     if (e.target.tagName === "INPUT") {
       return;
     }
@@ -25,25 +34,26 @@ function ContractBtns({ setValue }) {
       return;
     }
     const newValue = parseInt(inputValue);
-    await contract.methods.write(newValue).send({ from: accounts[0] });
+    await contract.methods
+      .contribute()
+      .send({ from: accounts[0], value: newValue });
   };
 
   return (
     <div className="btns">
+      <button onClick={manager}>manager()</button>
+      <button onClick={minimumContribution}>minimumContribution()</button>
 
-      <button onClick={read}>
-        read()
-      </button>
-
-      <div onClick={write} className="input-btn">
-        write(<input
+      <div onClick={contribute} className="input-btn">
+        contribute(
+        <input
           type="text"
           placeholder="uint"
           value={inputValue}
           onChange={handleInputChange}
-        />)
+        />
+        )
       </div>
-
     </div>
   );
 }

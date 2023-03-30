@@ -2,9 +2,9 @@ function Cta() {
   return (
     <p>
       Try changing&nbsp;
-      <span className="code">value</span>
+      <span className="code">minimumContribution</span>
       &nbsp;in&nbsp;
-      <span className="code">SimpleStorage</span>.
+      <span className="code">Campaign</span>.
     </p>
   );
 }
