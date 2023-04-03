@@ -12,13 +12,18 @@ function Demo() {
   const { state } = useEth();
   const [manager, setManager] = useState("?");
   const [value, setValue] = useState("?");
+  const [requests, setRequests] = useState([]);
 
   const demo = (
     <>
       <Cta />
       <div className="contract-container">
-        <Contract manager={manager} value={value} />
-        <ContractBtns setManager={setManager} setValue={setValue} />
+        <Contract manager={manager} value={value} requests={requests} />
+        <ContractBtns
+          setManager={setManager}
+          setValue={setValue}
+          setRequests={setRequests}
+        />
       </div>
       <Desc />
     </>
