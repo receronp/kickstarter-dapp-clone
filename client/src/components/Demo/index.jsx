@@ -10,26 +10,35 @@ import NoticeWrongNetwork from "./NoticeWrongNetwork";
 
 function Demo() {
   const { state } = useEth();
+  const [manager, setManager] = useState("?");
   const [value, setValue] = useState("?");
+  const [requests, setRequests] = useState([]);
 
-  const demo =
+  const demo = (
     <>
       <Cta />
       <div className="contract-container">
-        <Contract value={value} />
-        <ContractBtns setValue={setValue} />
+        <Contract manager={manager} value={value} requests={requests} />
+        <ContractBtns
+          setManager={setManager}
+          setValue={setValue}
+          setRequests={setRequests}
+        />
       </div>
       <Desc />
-    </>;
+    </>
+  );
 
   return (
     <div className="demo">
       <Title />
-      {
-        !state.artifact ? <NoticeNoArtifact /> :
-          !state.contract ? <NoticeWrongNetwork /> :
-            demo
-      }
+      {!state.artifact ? (
+        <NoticeNoArtifact />
+      ) : !state.contract ? (
+        <NoticeWrongNetwork />
+      ) : (
+        demo
+      )}
     </div>
   );
 }

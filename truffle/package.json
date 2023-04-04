@@ -3,10 +3,15 @@
   "version": "0.1.0",
   "description": "Truffle project with Kickstarter DApp Clone.",
   "scripts": {
-    "test": "truffle test"
+    "test": "truffle test",
+    "mocha": "mocha ./test/*.test.js"
   },
   "dependencies": {
     "@truffle/hdwallet-provider": "^2.1.9",
-    "dotenv": "^16.0.3"
+    "dotenv": "^16.0.3",
+    "ganache": "^7.7.7",
+    "mocha": "^10.2.0",
+    "solc": "^0.8.19",
+    "web3": "^1.9.0"
   }
 }
