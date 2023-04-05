@@ -35,6 +35,6 @@ if (!fs.existsSync(buildPath)) {
 for (let contract in contracts) {
   fs.writeFileSync(
     path.resolve(buildPath, `${path.parse(contract).name}.json`),
-    JSON.stringify(contracts[contract])
+    JSON.stringify(contracts[contract][path.parse(contract).name])
   );
 }
