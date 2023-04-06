@@ -1,10 +1,8 @@
 const assert = require("assert");
 const ganache = require("ganache");
 const Web3 = require("web3");
-const {
-  CampaignFactory: compiledFactory,
-} = require("../build/CampaignFactory.json");
-const { Campaign: compiledCampaign } = require("../build/Campaign.json");
+const CampaignFactory = require("../build/CampaignFactory.json");
+const Campaign = require("../build/Campaign.json");
 
 const web3 = new Web3(ganache.provider({ logging: { quiet: true } }));
 
@@ -18,12 +16,12 @@ beforeEach(async () => {
   accounts = await web3.eth.getAccounts();
 
   // Use one of those accounts to deploy the contract.
-  factory = await new web3.eth.Contract(compiledFactory.abi)
-    .deploy({ data: compiledFactory.evm.bytecode.object })
+  factory = await new web3.eth.Contract(CampaignFactory.abi)
+    .deploy({ data: CampaignFactory.evm.bytecode.object })
     .send({
       from: accounts[0],
       gas: await web3.eth.estimateGas({
-        data: compiledFactory.evm.bytecode.object,
+        data: CampaignFactory.evm.bytecode.object,
       }),
     });
 
@@ -32,7 +30,7 @@ beforeEach(async () => {
     .send({ from: accounts[0], gas: "1000000" });
 
   [campaignAddress] = await factory.methods.getDeployedCampaigns().call();
-  campaign = await new web3.eth.Contract(compiledCampaign.abi, campaignAddress);
+  campaign = await new web3.eth.Contract(Campaign.abi, campaignAddress);
 });
 
 describe("Campaigns", () => {
